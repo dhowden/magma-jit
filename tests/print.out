@@ -1,0 +1,23 @@
+1
+true false
+String
+[1,2,3]
+3
+[4,5,6]
+3
+4
+5
+6
+3
+1
+2
+3
+1 true String [1,2,3] 3 [4,5,6] 3 4 5 6
+TestingTesting
+Testing
+Testing
+"Quoted Text"
+%
+1: 1
+true: true
+[1,2,3]: [1,2,3]

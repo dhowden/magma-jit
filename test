@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Copyright 2015, David Howden
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+PROG=./mj
+FLAGS=
+
+COMMAND=""$PROG" "$FLAGS""
+STAMP=`date +%s`
+
+function runtest {
+   file="${1}"
+   base=`basename "${file%.*}"`
+   outfile="/tmp/"$base"-"$STAMP".out"
+
+   if [ -f "tests/"$base".out" ]
+       then
+       tmpfile=/tmp/"$base"-"$STAMP".tmp
+       $COMMAND $file &> $tmpfile
+       diff "tests/"$base".out" "$tmpfile" > $outfile
+   else
+       $COMMAND $file &> $outfile
+   fi
+
+   output=`cat "$outfile"`
+
+   if [[ "$output" != "" ]]
+       then
+       echo "FAIL "$file""
+       # echo $output
+   else
+       echo "ok   "$file""
+   fi
+}
+
+if [ $# -eq 1 ]; then
+   runtest "$1"
+   exit
+fi
+
+for file in tests/*.m
+do
+   runtest $file
+done
