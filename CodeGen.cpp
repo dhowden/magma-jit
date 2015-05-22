@@ -1404,9 +1404,10 @@ void CodeGen::visit(const ReturnStatementAST &return_statement)
 void CodeGen::visit(const CallExpressionAST &call_expression)
 {
    Value *CalleeFAlloca = context.getLocal(call_expression.Name->Name);
-   if (!CalleeFAlloca)
+   if (!CalleeFAlloca) {
       Error::exit(call_expression.Name, "invalid call: '" + call_expression.Name->Name +
          "' is not a valid function/procedure name");
+   }
 
    Value *CalleeFPtr = Builder->CreateLoad(CalleeFAlloca);
 
